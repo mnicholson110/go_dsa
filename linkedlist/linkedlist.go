@@ -1,19 +1,19 @@
 package linkedlist
 
-type Node struct {
-  Value int
-  Next *Node
-  Prev *Node
+type Node[T comparable] struct {
+  Value T
+  Next *Node[T]
+  Prev *Node[T]
 }
 
-type LinkedList struct {
-  Head *Node
-  Tail *Node
+type LinkedList[T comparable] struct {
+  Head *Node[T]
+  Tail *Node[T]
   Length int
 }
 
-func (l *LinkedList) Append(value int) {
-  node := &Node{Value: value}
+func (l *LinkedList[T]) Append(value T) {
+  node := &Node[T]{Value: value}
 
   if l.Head == nil {
     l.Head = node
@@ -26,8 +26,8 @@ func (l *LinkedList) Append(value int) {
   l.Length++
 }
 
-func (l *LinkedList) Prepend(value int) {
-  node := &Node{Value: value}
+func (l *LinkedList[T]) Prepend(value T) {
+  node := &Node[T]{Value: value}
 
   if l.Head == nil {
     l.Head = node
@@ -40,7 +40,7 @@ func (l *LinkedList) Prepend(value int) {
   l.Length++
 }
 
-func (l *LinkedList) Remove(value int) {
+func (l *LinkedList[T]) Remove(value T) {
   if l.Head == nil {
     return
   }
