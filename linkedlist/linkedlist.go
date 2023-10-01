@@ -13,7 +13,7 @@ type Node[T comparable] struct {
 type LinkedList[T comparable] struct {
   Head *Node[T]
   Tail *Node[T]
-  Length int
+  Length int 
 }
 
 func (l *LinkedList[T]) Append(value T) {
@@ -109,7 +109,9 @@ func (l *LinkedList[T]) RemoveAt(index int) {
 
   if index == 0 {
     l.Head = l.Head.Next
-    l.Head.Prev = nil
+    if l.Head != nil {
+      l.Head.Prev = nil
+    }
   } else if index == l.Length - 1 {
     l.Tail = l.Tail.Prev
     l.Tail.Next = nil

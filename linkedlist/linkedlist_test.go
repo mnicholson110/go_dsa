@@ -1,11 +1,15 @@
-package linkedlist
+import (
+  "errors"
+)
+
+ckage linkedlist
 
 import (
   "testing"
 )
 
 func TestLinkedList(t *testing.T) {
-  list := LinkedList[int]{}
+  list := &LinkedList[int]{}
   list.Append(1)
   list.Append(2)
   list.Append(3)

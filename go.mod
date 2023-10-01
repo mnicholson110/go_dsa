@@ -4,4 +4,8 @@ go 1.21.1
 
 replace linkedlist => ./linkedlist
 
-require linkedlist v0.0.0-00010101000000-000000000000
+replace queue => ./queue
+
+replace stack => ./stack
+
+require stack v0.0.0-00010101000000-000000000000
