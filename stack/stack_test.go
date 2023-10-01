@@ -5,7 +5,7 @@ import (
 )
 
 func TestIntStack(t *testing.T) {
-  s := Stack[int]{}
+  s := New[int]()
 
   s.Push(5)
   s.Push(7)
@@ -45,7 +45,7 @@ func TestIntStack(t *testing.T) {
 }
 
 func TestStringStack(t *testing.T) {
-  s := Stack[string]{}
+  s := New[string]()
 
   s.Push("world")
   s.Push("hello")

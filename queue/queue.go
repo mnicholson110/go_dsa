@@ -12,6 +12,14 @@ type Queue[T comparable] struct {
   Length int
 }
 
+func New[T comparable]() *Queue[T] {
+  return &Queue[T]{
+    Head: nil,
+    Tail: nil,
+    Length: 0,
+  }
+}
+
 func (q *Queue[T]) Enqueue(value T) {
   node := &Node[T]{Value: value}
 

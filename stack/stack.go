@@ -12,6 +12,14 @@ type Stack[T comparable] struct {
   Length int
 }
 
+func New[T comparable]() *Stack[T] {
+  return &Stack[T]{
+    Head: nil,
+    Tail: nil,
+    Length: 0,
+  }
+}
+
 func (s *Stack[T]) Push(value T) {
   node := &Node[T]{Value: value}
   if s.Head == nil {

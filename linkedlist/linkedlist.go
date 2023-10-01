@@ -12,6 +12,14 @@ type LinkedList[T comparable] struct {
   Length int 
 }
 
+func New[T comparable]() *LinkedList[T] {
+  return &LinkedList[T]{
+    Head: nil,
+    Tail: nil,
+    Length: 0,
+  }
+}
+
 func (l *LinkedList[T]) Append(value T) {
   node := &Node[T]{Value: value}
 

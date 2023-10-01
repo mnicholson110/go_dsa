@@ -5,7 +5,7 @@ import (
 )
 
 func TestIntQueue(t *testing.T) {
-  s := Queue[int]{}
+  s := New[int]()
 
   s.Enqueue(5)
   s.Enqueue(7)

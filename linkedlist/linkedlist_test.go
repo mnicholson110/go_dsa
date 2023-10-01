@@ -5,7 +5,7 @@ import (
 )
 
 func TestIntLinkedList(t *testing.T) {
-  list := LinkedList[int]{}
+  list := New[int]()
 
   list.Append(5)
   list.Append(7)
