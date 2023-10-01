@@ -1,9 +1,5 @@
 package linkedlist
 
-import (
-  "errors"
-)
-
 type Node[T comparable] struct {
   Value T
   Next *Node[T]
@@ -46,7 +42,7 @@ func (l *LinkedList[T]) Prepend(value T) {
 
 func (l *LinkedList[T]) AddAt(index int, value T) {
   if index < 0 || index > l.Length {
-    panic(errors.New("Index out of bounds"))
+    panic("Index out of bounds")
   }
 
   if index == l.Length {
@@ -104,7 +100,7 @@ func (l *LinkedList[T]) Remove(value T) {
 
 func (l *LinkedList[T]) RemoveAt(index int) {
   if index < 0 || index >= l.Length {
-    panic(errors.New("Index out of bounds"))
+    panic("Index out of bounds")
   }
 
   if index == 0 {
@@ -128,9 +124,9 @@ func (l *LinkedList[T]) RemoveAt(index int) {
   l.Length--
 }
 
-func (l *LinkedList[T]) GetAt(index int) (value T, err error) {
+func (l *LinkedList[T]) GetAt(index int) T {
   if index < 0 || index >= l.Length {
-    return value, errors.New("Index out of bounds")
+    panic("Index out of bounds")
   }
 
   current := l.Head
@@ -138,6 +134,5 @@ func (l *LinkedList[T]) GetAt(index int) (value T, err error) {
     current = current.Next
   }
 
-  return current.Value, nil
-}
+  return current.Value}
 
