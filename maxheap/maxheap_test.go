@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestIntMinHeap(t *testing.T) {
+func TestIntMaxHeap(t *testing.T) {
 	heap := New[int]()
 
 	if heap.Length != 0 {
