@@ -10,7 +10,10 @@ type MinHeap[T constraints.Ordered] struct {
 }
 
 func New[T constraints.Ordered]() *MinHeap[T] {
-	return &MinHeap[T]{Heap: make([]T, 0), Length: 0}
+	return &MinHeap[T]{
+		Heap:   make([]T, 0),
+		Length: 0,
+	}
 }
 
 func (h *MinHeap[T]) Insert(value T) {

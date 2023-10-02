@@ -10,7 +10,10 @@ type MaxHeap[T constraints.Ordered] struct {
 }
 
 func New[T constraints.Ordered]() *MaxHeap[T] {
-	return &MaxHeap[T]{Heap: make([]T, 0), Length: 0}
+	return &MaxHeap[T]{
+		Heap:   make([]T, 0),
+		Length: 0,
+	}
 }
 
 func (h *MaxHeap[T]) Insert(value T) {
