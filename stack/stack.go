@@ -42,3 +42,10 @@ func (s *Stack[T]) Pop() T {
 
   return node.Value
 }
+
+func (s *Stack[T]) Peek() T {
+  if s.Head == nil {
+    panic("Stack is empty")
+  }
+  return s.Head.Value
+}

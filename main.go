@@ -2,30 +2,18 @@ package main
 
 import (
   "fmt"
-  "stack"
+  "linkedlist"
 )
 
 func main() {
-  a := stack.Stack[int]{}
+  list := linkedlist.LinkedList[int]{}
 
-  a.Push(1)
-  a.Push(2)
-  a.Push(3)
+  list.Prepend(5)
+  list.Prepend(7)
+  list.Prepend(9)
 
-  fmt.Println(a.Pop())
-  fmt.Println(a.Pop())
-  fmt.Println(a.Pop())
+  fmt.Println(list.GetAt(0))
+  fmt.Println(list.GetAt(2))
 
-  b := stack.Stack[string]{}
-
-  b.Push("this")
-  b.Push("is")
-  b.Push("a")
-  b.Push("string")
-
-  fmt.Println(b.Pop())
-  fmt.Println(b.Pop())
-  fmt.Println(b.Pop())
-  fmt.Println(b.Pop())
-  fmt.Println(b.Pop())  
+  list.Remove(9)
 }

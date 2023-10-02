@@ -72,22 +72,17 @@ func (l *LinkedList[T]) Remove(value T) {
   current := l.Head
   for current != nil {
     if current.Value == value {
-      if current.Prev == nil {
-        l.Head = current.Next
-        l.Head.Prev = nil
-      } else {
-        tmp := current.Prev
-        tmp.Next = current.Next
-        tmp.Next.Prev = tmp
-      }
-
-      if current.Next == nil {
-        l.Tail = current.Prev
+      if current == l.Head {
+        l.Head = l.Head.Next
+        if l.Head != nil {
+          l.Head.Prev = nil
+        }
+      } else if current == l.Tail {
+        l.Tail = l.Tail.Prev
         l.Tail.Next = nil
       } else {
-        tmp := current.Next
-        tmp.Prev = current.Prev
-        tmp.Prev.Next = tmp 
+        current.Prev.Next = current.Next
+        current.Next.Prev = current.Prev
       }
 
       l.Length--
