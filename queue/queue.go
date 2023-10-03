@@ -1,61 +1,65 @@
 package queue
 
 type Node[T comparable] struct {
-	Value T
-	Next  *Node[T]
-	Prev  *Node[T]
+	value T
+	next  *Node[T]
+	prev  *Node[T]
 }
 
 type Queue[T comparable] struct {
-	Head   *Node[T]
-	Tail   *Node[T]
-	Length int
+	head   *Node[T]
+	tail   *Node[T]
+	length int
 }
 
 func New[T comparable]() *Queue[T] {
 	return &Queue[T]{
-		Head:   nil,
-		Tail:   nil,
-		Length: 0,
+		head:   nil,
+		tail:   nil,
+		length: 0,
 	}
+}
+
+func (q *Queue[T]) Len() int {
+	return q.length
 }
 
 func (q *Queue[T]) Enqueue(value T) {
-	node := &Node[T]{Value: value}
+	node := &Node[T]{value: value}
 
-	if q.Head == nil {
-		q.Head = node
-		q.Tail = node
+	if q.head == nil {
+		q.head = node
+		q.tail = node
 	} else {
-		q.Tail.Next = node
-		node.Prev = q.Tail
+		q.tail.next = node
+		node.prev = q.tail
 	}
 
-	q.Tail = node
-	q.Length++
+	q.tail = node
+	q.length++
 }
 
 func (q *Queue[T]) Dequeue() T {
-	if q.Head == nil {
+	if q.head == nil {
 		panic("Queue is empty")
 	}
 
-	node := q.Head
-	q.Head = q.Head.Next
-	q.Length--
+	node := q.head
+	q.head = q.head.next
+	q.length--
 
-	if q.Head == nil {
-		q.Tail = nil
+	if q.head == nil {
+		q.tail = nil
 	} else {
-		q.Head.Prev = nil
+		q.head.prev = nil
 	}
 
-	return node.Value
+	return node.value
 }
 
 func (q *Queue[T]) Peek() T {
-	if q.Head == nil {
+	if q.head == nil {
 		panic("Queue is empty")
 	}
-	return q.Head.Value
+	return q.head.value
 }

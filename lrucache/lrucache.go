@@ -1,49 +1,53 @@
 package lrucache
 
 type Node[T comparable] struct {
-	Value T
-	Next  *Node[T]
-	Prev  *Node[T]
+	value T
+	next  *Node[T]
+	prev  *Node[T]
 }
 
-type LRUCache[K comparable, V comparable] struct {
-	Capacity     int
-	Length       int
-	Head         *Node[V]
-	Tail         *Node[V]
-	Cache        map[K]*Node[V]
-	ReverseCache map[*Node[V]]K
+type LRUcache[K comparable, V comparable] struct {
+	capacity     int
+	length       int
+	head         *Node[V]
+	tail         *Node[V]
+	cache        map[K]*Node[V]
+	reverseCache map[*Node[V]]K
 }
 
-func New[K comparable, V comparable](cap int) *LRUCache[K, V] {
-	return &LRUCache[K, V]{
-		Capacity:     cap,
-		Length:       0,
-		Head:         nil,
-		Tail:         nil,
-		Cache:        make(map[K]*Node[V]),
-		ReverseCache: make(map[*Node[V]]K),
+func New[K comparable, V comparable](cap int) *LRUcache[K, V] {
+	return &LRUcache[K, V]{
+		capacity:     cap,
+		length:       0,
+		head:         nil,
+		tail:         nil,
+		cache:        make(map[K]*Node[V]),
+		reverseCache: make(map[*Node[V]]K),
 	}
 }
 
-func (c *LRUCache[K, V]) Update(key K, value V) {
-	node := c.Cache[key]
+func (c *LRUcache[K, V]) Len() int {
+	return c.length
+}
+
+func (c *LRUcache[K, V]) Update(key K, value V) {
+	node := c.cache[key]
 	if node == nil {
-		node = &Node[V]{Value: value}
-		c.Length++
+		node = &Node[V]{value: value}
+		c.length++
 		c.prepend(node)
-		c.trimCache()
-		c.Cache[key] = node
-		c.ReverseCache[node] = key
+		c.trimcache()
+		c.cache[key] = node
+		c.reverseCache[node] = key
 	} else {
-		node.Value = value
+		node.value = value
 		c.detach(node)
 		c.prepend(node)
 	}
 }
 
-func (c *LRUCache[K, V]) Get(key K) (val V, ok bool) {
-	node := c.Cache[key]
+func (c *LRUcache[K, V]) Get(key K) (val V, ok bool) {
+	node := c.cache[key]
 	if node == nil {
 		return val, false
 	}
@@ -51,46 +55,46 @@ func (c *LRUCache[K, V]) Get(key K) (val V, ok bool) {
 	c.detach(node)
 	c.prepend(node)
 
-	return node.Value, true
+	return node.value, true
 }
 
-func (c *LRUCache[K, V]) detach(node *Node[V]) {
-	if node.Prev != nil {
-		node.Prev.Next = node.Next
+func (c *LRUcache[K, V]) detach(node *Node[V]) {
+	if node.prev != nil {
+		node.prev.next = node.next
 	}
-	if node.Next != nil {
-		node.Next.Prev = node.Prev
+	if node.next != nil {
+		node.next.prev = node.prev
 	}
-	if c.Head == node {
-		c.Head = node.Next
+	if c.head == node {
+		c.head = node.next
 	}
-	if c.Tail == node {
-		c.Tail = node.Prev
+	if c.tail == node {
+		c.tail = node.prev
 	}
-	node.Prev = nil
-	node.Next = nil
+	node.prev = nil
+	node.next = nil
 }
 
-func (c *LRUCache[K, V]) prepend(node *Node[V]) {
-	if c.Head == nil {
-		c.Head = node
-		c.Tail = node
+func (c *LRUcache[K, V]) prepend(node *Node[V]) {
+	if c.head == nil {
+		c.head = node
+		c.tail = node
 	} else {
-		c.Head.Prev = node
-		node.Next = c.Head
-		c.Head = node
+		c.head.prev = node
+		node.next = c.head
+		c.head = node
 	}
 }
 
-func (c *LRUCache[K, V]) trimCache() {
-	if c.Length <= c.Capacity {
+func (c *LRUcache[K, V]) trimcache() {
+	if c.length <= c.capacity {
 		return
 	}
 
-	node := c.Tail
-	c.detach(c.Tail)
-	k := c.ReverseCache[node]
-	delete(c.Cache, k)
-	delete(c.ReverseCache, node)
-	c.Length--
+	node := c.tail
+	c.detach(c.tail)
+	k := c.reverseCache[node]
+	delete(c.cache, k)
+	delete(c.reverseCache, node)
+	c.length--
 }

@@ -5,38 +5,42 @@ import (
 )
 
 type MaxHeap[T constraints.Ordered] struct {
-	Heap   []T
-	Length int
+	heap   []T
+	length int
 }
 
 func New[T constraints.Ordered]() *MaxHeap[T] {
 	return &MaxHeap[T]{
-		Heap:   make([]T, 0),
-		Length: 0,
+		heap:   make([]T, 0),
+		length: 0,
 	}
+}
+
+func (h *MaxHeap[T]) Len() int {
+	return h.length
 }
 
 func (h *MaxHeap[T]) Insert(value T) {
-	h.Heap = append(h.Heap, value)
-	h.heapifyUp(h.Length)
-	h.Length++
+	h.heap = append(h.heap, value)
+	h.heapifyUp(h.length)
+	h.length++
 }
 
 func (h *MaxHeap[T]) Delete() T {
-	if h.Length == 0 {
-		panic("Heap is empty")
+	if h.length == 0 {
+		panic("heap is empty")
 	}
 
-	out := h.Heap[0]
+	out := h.heap[0]
 
-	if h.Length == 1 {
-		h.Length--
-		h.Heap = h.Heap[:0]
+	if h.length == 1 {
+		h.length--
+		h.heap = h.heap[:0]
 		return out
 	}
 
-	h.Length--
-	h.Heap[0] = h.Heap[h.Length]
+	h.length--
+	h.heap[0] = h.heap[h.length]
 	h.heapifyDown(0)
 
 	return out
@@ -49,8 +53,8 @@ func (h *MaxHeap[T]) heapifyUp(idx int) {
 
 	parentIdx := h.parentIdx(idx)
 
-	if h.Heap[parentIdx] < h.Heap[idx] {
-		h.Heap[parentIdx], h.Heap[idx] = h.Heap[idx], h.Heap[parentIdx]
+	if h.heap[parentIdx] < h.heap[idx] {
+		h.heap[parentIdx], h.heap[idx] = h.heap[idx], h.heap[parentIdx]
 		h.heapifyUp(parentIdx)
 	}
 }
@@ -59,15 +63,15 @@ func (h *MaxHeap[T]) heapifyDown(idx int) {
 	leftChildIdx := h.leftChildIdx(idx)
 	rightChildIdx := h.rightChildIdx(idx)
 
-	if idx >= h.Length || leftChildIdx >= h.Length {
+	if idx >= h.length || leftChildIdx >= h.length {
 		return
 	}
 
-	if h.Heap[leftChildIdx] < h.Heap[rightChildIdx] && h.Heap[idx] < h.Heap[rightChildIdx] {
-		h.Heap[idx], h.Heap[rightChildIdx] = h.Heap[rightChildIdx], h.Heap[idx]
+	if h.heap[leftChildIdx] < h.heap[rightChildIdx] && h.heap[idx] < h.heap[rightChildIdx] {
+		h.heap[idx], h.heap[rightChildIdx] = h.heap[rightChildIdx], h.heap[idx]
 		h.heapifyDown(rightChildIdx)
-	} else if h.Heap[idx] < h.Heap[leftChildIdx] {
-		h.Heap[idx], h.Heap[leftChildIdx] = h.Heap[leftChildIdx], h.Heap[idx]
+	} else if h.heap[idx] < h.heap[leftChildIdx] {
+		h.heap[idx], h.heap[leftChildIdx] = h.heap[leftChildIdx], h.heap[idx]
 		h.heapifyDown(leftChildIdx)
 	}
 }

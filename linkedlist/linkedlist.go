@@ -1,59 +1,63 @@
 package linkedlist
 
 type Node[T comparable] struct {
-	Value T
-	Next  *Node[T]
-	Prev  *Node[T]
+	value T
+	next  *Node[T]
+	prev  *Node[T]
 }
 
 type LinkedList[T comparable] struct {
-	Head   *Node[T]
-	Tail   *Node[T]
-	Length int
+	head   *Node[T]
+	tail   *Node[T]
+	length int
 }
 
 func New[T comparable]() *LinkedList[T] {
 	return &LinkedList[T]{
-		Head:   nil,
-		Tail:   nil,
-		Length: 0,
+		head:   nil,
+		tail:   nil,
+		length: 0,
 	}
+}
+
+func (l *LinkedList[T]) Len() int {
+	return l.length
 }
 
 func (l *LinkedList[T]) Append(value T) {
-	node := &Node[T]{Value: value}
+	node := &Node[T]{value: value}
 
-	if l.Head == nil {
-		l.Head = node
+	if l.head == nil {
+		l.head = node
 	} else {
-		l.Tail.Next = node
-		node.Prev = l.Tail
+		l.tail.next = node
+		node.prev = l.tail
 	}
 
-	l.Tail = node
-	l.Length++
+	l.tail = node
+	l.length++
 }
 
 func (l *LinkedList[T]) Prepend(value T) {
-	node := &Node[T]{Value: value}
+	node := &Node[T]{value: value}
 
-	if l.Head == nil {
-		l.Tail = node
+	if l.head == nil {
+		l.tail = node
 	} else {
-		l.Head.Prev = node
-		node.Next = l.Head
+		l.head.prev = node
+		node.next = l.head
 	}
 
-	l.Head = node
-	l.Length++
+	l.head = node
+	l.length++
 }
 
 func (l *LinkedList[T]) AddAt(index int, value T) {
-	if index < 0 || index > l.Length {
+	if index < 0 || index > l.length {
 		panic("Index out of bounds")
 	}
 
-	if index == l.Length {
+	if index == l.length {
 		l.Append(value)
 		return
 	}
@@ -63,79 +67,79 @@ func (l *LinkedList[T]) AddAt(index int, value T) {
 		return
 	}
 
-	node := &Node[T]{Value: value}
-	current := l.Head
+	node := &Node[T]{value: value}
+	current := l.head
 	for i := 0; i < index; i++ {
-		current = current.Next
+		current = current.next
 	}
 
-	node.Next = current
-	node.Prev = current.Prev
-	current.Prev.Next = node
-	current.Prev = node
-	l.Length++
+	node.next = current
+	node.prev = current.prev
+	current.prev.next = node
+	current.prev = node
+	l.length++
 }
 
 func (l *LinkedList[T]) Remove(value T) {
-	current := l.Head
+	current := l.head
 	for current != nil {
-		if current.Value == value {
-			if current == l.Head {
-				l.Head = l.Head.Next
-				if l.Head != nil {
-					l.Head.Prev = nil
+		if current.value == value {
+			if current == l.head {
+				l.head = l.head.next
+				if l.head != nil {
+					l.head.prev = nil
 				}
-			} else if current == l.Tail {
-				l.Tail = l.Tail.Prev
-				l.Tail.Next = nil
+			} else if current == l.tail {
+				l.tail = l.tail.prev
+				l.tail.next = nil
 			} else {
-				current.Prev.Next = current.Next
-				current.Next.Prev = current.Prev
+				current.prev.next = current.next
+				current.next.prev = current.prev
 			}
 
-			l.Length--
+			l.length--
 			return
 		}
 
-		current = current.Next
+		current = current.next
 	}
 }
 
 func (l *LinkedList[T]) RemoveAt(index int) {
-	if index < 0 || index >= l.Length {
+	if index < 0 || index >= l.length {
 		panic("Index out of bounds")
 	}
 
 	if index == 0 {
-		l.Head = l.Head.Next
-		if l.Head != nil {
-			l.Head.Prev = nil
+		l.head = l.head.next
+		if l.head != nil {
+			l.head.prev = nil
 		}
-	} else if index == l.Length-1 {
-		l.Tail = l.Tail.Prev
-		l.Tail.Next = nil
+	} else if index == l.length-1 {
+		l.tail = l.tail.prev
+		l.tail.next = nil
 	} else {
-		current := l.Head
+		current := l.head
 		for i := 0; i < index; i++ {
-			current = current.Next
+			current = current.next
 		}
 
-		current.Prev.Next = current.Next
-		current.Next.Prev = current.Prev
+		current.prev.next = current.next
+		current.next.prev = current.prev
 	}
 
-	l.Length--
+	l.length--
 }
 
 func (l *LinkedList[T]) GetAt(index int) T {
-	if index < 0 || index >= l.Length {
+	if index < 0 || index >= l.length {
 		panic("Index out of bounds")
 	}
 
-	current := l.Head
+	current := l.head
 	for i := 0; i < index; i++ {
-		current = current.Next
+		current = current.next
 	}
 
-	return current.Value
+	return current.value
 }

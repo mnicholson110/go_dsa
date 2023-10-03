@@ -7,8 +7,8 @@ import (
 func TestIntMaxHeap(t *testing.T) {
 	heap := New[int]()
 
-	if heap.Length != 0 {
-		t.Errorf("Expected length to be 0, got %d", heap.Length)
+	if heap.Len() != 0 {
+		t.Errorf("Expected length to be 0, got %d", heap.Len())
 	}
 
 	heap.Insert(5)
@@ -20,8 +20,8 @@ func TestIntMaxHeap(t *testing.T) {
 	heap.Insert(8)
 	heap.Insert(7)
 
-	if heap.Length != 8 {
-		t.Errorf("Expected length to be 8, got %d", heap.Length)
+	if heap.Len() != 8 {
+		t.Errorf("Expected length to be 8, got %d", heap.Len())
 	}
 
 	if heap.Delete() != 420 {
@@ -40,8 +40,8 @@ func TestIntMaxHeap(t *testing.T) {
 		t.Errorf("Expected 5, got %d", heap.Delete())
 	}
 
-	if heap.Length != 4 {
-		t.Errorf("Expected length to be 4, got %d", heap.Length)
+	if heap.Len() != 4 {
+		t.Errorf("Expected length to be 4, got %d", heap.Len())
 	}
 
 	if heap.Delete() != 5 {
@@ -60,7 +60,7 @@ func TestIntMaxHeap(t *testing.T) {
 		t.Errorf("Expected 420, got %d", heap.Delete())
 	}
 
-	if heap.Length != 0 {
-		t.Errorf("Expected length to be 0, got %d", heap.Length)
+	if heap.Len() != 0 {
+		t.Errorf("Expected length to be 0, got %d", heap.Len())
 	}
 }

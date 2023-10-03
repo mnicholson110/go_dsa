@@ -21,8 +21,8 @@ func TestIntLinkedList(t *testing.T) {
 
 	list.RemoveAt(0)
 
-	if list.Length != 0 {
-		t.Errorf("Expected length of 0, got %d", list.Length)
+	if list.Len() != 0 {
+		t.Errorf("Expected length of 0, got %d", list.Len())
 	}
 
 	list.Prepend(5)
@@ -39,8 +39,8 @@ func TestIntLinkedList(t *testing.T) {
 
 	list.Remove(9)
 
-	if list.Length != 2 {
-		t.Errorf("Expected length of 2, got %d", list.Length)
+	if list.Len() != 2 {
+		t.Errorf("Expected length of 2, got %d", list.Len())
 	}
 
 	if list.GetAt(0) != 7 {

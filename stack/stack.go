@@ -1,59 +1,63 @@
 package stack
 
 type Node[T comparable] struct {
-	Value T
-	Next  *Node[T]
-	Prev  *Node[T]
+	value T
+	next  *Node[T]
+	prev  *Node[T]
 }
 
 type Stack[T comparable] struct {
-	Head   *Node[T]
-	Tail   *Node[T]
-	Length int
+	head   *Node[T]
+	tail   *Node[T]
+	length int
 }
 
 func New[T comparable]() *Stack[T] {
 	return &Stack[T]{
-		Head:   nil,
-		Tail:   nil,
-		Length: 0,
+		head:   nil,
+		tail:   nil,
+		length: 0,
 	}
+}
+
+func (s *Stack[T]) Len() int {
+	return s.length
 }
 
 func (s *Stack[T]) Push(value T) {
-	node := &Node[T]{Value: value}
-	if s.Head == nil {
-		s.Head = node
-		s.Tail = node
+	node := &Node[T]{value: value}
+	if s.head == nil {
+		s.head = node
+		s.tail = node
 	} else {
-		s.Head.Prev = node
-		node.Next = s.Head
-		s.Head = node
+		s.head.prev = node
+		node.next = s.head
+		s.head = node
 	}
-	s.Length++
+	s.length++
 }
 
 func (s *Stack[T]) Pop() T {
-	if s.Head == nil {
+	if s.head == nil {
 		panic("Stack is empty")
 	}
 
-	node := s.Head
-	s.Head = s.Head.Next
-	s.Length--
+	node := s.head
+	s.head = s.head.next
+	s.length--
 
-	if s.Head == nil {
-		s.Tail = nil
+	if s.head == nil {
+		s.tail = nil
 	} else {
-		s.Head.Prev = nil
+		s.head.prev = nil
 	}
 
-	return node.Value
+	return node.value
 }
 
 func (s *Stack[T]) Peek() T {
-	if s.Head == nil {
+	if s.head == nil {
 		panic("Stack is empty")
 	}
-	return s.Head.Value
+	return s.head.value
 }
