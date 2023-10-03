@@ -39,9 +39,9 @@ func (q *Queue[T]) Enqueue(value T) {
 	q.length++
 }
 
-func (q *Queue[T]) Dequeue() T {
+func (q *Queue[T]) Dequeue() (val T, ok bool) {
 	if q.head == nil {
-		panic("Queue is empty")
+		return val, false
 	}
 
 	node := q.head
@@ -54,12 +54,12 @@ func (q *Queue[T]) Dequeue() T {
 		q.head.prev = nil
 	}
 
-	return node.value
+	return node.value, true
 }
 
-func (q *Queue[T]) Peek() T {
+func (q *Queue[T]) Peek() (val T, ok bool) {
 	if q.head == nil {
-		panic("Queue is empty")
+		return val, false
 	}
-	return q.head.value
+	return q.head.value, true
 }

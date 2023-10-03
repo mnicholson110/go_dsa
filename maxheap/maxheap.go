@@ -26,9 +26,9 @@ func (h *MaxHeap[T]) Insert(value T) {
 	h.length++
 }
 
-func (h *MaxHeap[T]) Delete() T {
+func (h *MaxHeap[T]) Delete() (val T, ok bool) {
 	if h.length == 0 {
-		panic("heap is empty")
+		return val, false
 	}
 
 	out := h.heap[0]
@@ -36,14 +36,14 @@ func (h *MaxHeap[T]) Delete() T {
 	if h.length == 1 {
 		h.length--
 		h.heap = h.heap[:0]
-		return out
+		return out, true
 	}
 
 	h.length--
 	h.heap[0] = h.heap[h.length]
 	h.heapifyDown(0)
 
-	return out
+	return out, true
 }
 
 func (h *MaxHeap[T]) heapifyUp(idx int) {

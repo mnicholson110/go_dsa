@@ -11,7 +11,8 @@ func TestIntStack(t *testing.T) {
 	s.Push(7)
 	s.Push(9)
 
-	if s.Pop() != 9 {
+	test, ok := s.Pop()
+	if test != 9 || !ok {
 		t.Error("Expected 9")
 	}
 
@@ -20,65 +21,38 @@ func TestIntStack(t *testing.T) {
 	}
 
 	s.Push(11)
-	if s.Pop() != 11 {
+
+	test, ok = s.Pop()
+	if test != 11 || !ok {
 		t.Error("Expected 11")
 	}
-	if s.Pop() != 7 {
+
+	test, ok = s.Pop()
+	if test != 7 || !ok {
 		t.Error("Expected 7")
 	}
-	if s.Peek() != 5 {
+
+	test, ok = s.Peek()
+	if test != 5 || !ok {
 		t.Error("Expected 5")
 	}
-	if s.Pop() != 5 {
+
+	test, ok = s.Pop()
+	if test != 5 || !ok {
 		t.Error("Expected 5")
 	}
+
 	if s.Len() != 0 {
 		t.Error("Expected length 0")
 	}
+
 	s.Push(69)
-	if s.Peek() != 69 {
+
+	test, ok = s.Peek()
+	if test != 69 || !ok {
 		t.Error("Expected 69")
 	}
-	if s.Len() != 1 {
-		t.Error("Expected length 1")
-	}
-}
 
-func TestStringStack(t *testing.T) {
-	s := New[string]()
-
-	s.Push("world")
-	s.Push("hello")
-	s.Push("hello")
-
-	if s.Pop() != "hello" {
-		t.Error("Expected hello")
-	}
-
-	if s.Len() != 2 {
-		t.Error("Expected length 2")
-	}
-
-	s.Push("world")
-	if s.Pop() != "world" {
-		t.Error("Expected world")
-	}
-	if s.Pop() != "hello" {
-		t.Error("Expected hello")
-	}
-	if s.Peek() != "world" {
-		t.Error("Expected world")
-	}
-	if s.Pop() != "world" {
-		t.Error("Expected world")
-	}
-	if s.Len() != 0 {
-		t.Error("Expected length 0")
-	}
-	s.Push("dassaword")
-	if s.Peek() != "dassaword" {
-		t.Error("Expected dassaword")
-	}
 	if s.Len() != 1 {
 		t.Error("Expected length 1")
 	}

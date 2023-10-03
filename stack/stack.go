@@ -37,9 +37,9 @@ func (s *Stack[T]) Push(value T) {
 	s.length++
 }
 
-func (s *Stack[T]) Pop() T {
+func (s *Stack[T]) Pop() (val T, ok bool) {
 	if s.head == nil {
-		panic("Stack is empty")
+		return val, false
 	}
 
 	node := s.head
@@ -52,12 +52,12 @@ func (s *Stack[T]) Pop() T {
 		s.head.prev = nil
 	}
 
-	return node.value
+	return node.value, true
 }
 
-func (s *Stack[T]) Peek() T {
+func (s *Stack[T]) Peek() (val T, ok bool) {
 	if s.head == nil {
-		panic("Stack is empty")
+		return val, false
 	}
-	return s.head.value
+	return s.head.value, true
 }

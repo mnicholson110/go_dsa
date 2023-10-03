@@ -24,40 +24,48 @@ func TestIntMinHeap(t *testing.T) {
 		t.Errorf("Expected length to be 8, got %d", heap.Len())
 	}
 
-	if heap.Delete() != 1 {
-		t.Errorf("Expected 1, got %d", heap.Delete())
+	test, ok := heap.Delete()
+	if test != 1 || !ok {
+		t.Errorf("Expected 1, got %d", test)
 	}
 
-	if heap.Delete() != 3 {
-		t.Errorf("Expected 3, got %d", heap.Delete())
+	test, ok = heap.Delete()
+	if test != 3 || !ok {
+		t.Errorf("Expected 3, got %d", test)
 	}
 
-	if heap.Delete() != 4 {
-		t.Errorf("Expected 4, got %d", heap.Delete())
+	test, ok = heap.Delete()
+	if test != 4 || !ok {
+		t.Errorf("Expected 4, got %d", test)
 	}
 
-	if heap.Delete() != 5 {
-		t.Errorf("Expected 5, got %d", heap.Delete())
+	test, ok = heap.Delete()
+	if test != 5 || !ok {
+		t.Errorf("Expected 5, got %d", test)
 	}
 
 	if heap.Len() != 4 {
 		t.Errorf("Expected length to be 4, got %d", heap.Len())
 	}
 
-	if heap.Delete() != 7 {
-		t.Errorf("Expected 7, got %d", heap.Delete())
+	test, ok = heap.Delete()
+	if test != 7 || !ok {
+		t.Errorf("Expected 7, got %d", test)
 	}
 
-	if heap.Delete() != 8 {
-		t.Errorf("Expected 8, got %d", heap.Delete())
+	test, ok = heap.Delete()
+	if test != 8 || !ok {
+		t.Errorf("Expected 8, got %d", test)
 	}
 
-	if heap.Delete() != 69 {
-		t.Errorf("Expected 69, got %d", heap.Delete())
+	test, ok = heap.Delete()
+	if test != 69 || !ok {
+		t.Errorf("Expected 69, got %d", test)
 	}
 
-	if heap.Delete() != 420 {
-		t.Errorf("Expected 420, got %d", heap.Delete())
+	test, ok = heap.Delete()
+	if test != 420 || !ok {
+		t.Errorf("Expected 420, got %d", test)
 	}
 
 	if heap.Len() != 0 {

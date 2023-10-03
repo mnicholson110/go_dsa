@@ -54,7 +54,7 @@ func (l *LinkedList[T]) Prepend(value T) {
 
 func (l *LinkedList[T]) AddAt(index int, value T) {
 	if index < 0 || index > l.length {
-		panic("Index out of bounds")
+		return
 	}
 
 	if index == l.length {
@@ -107,7 +107,7 @@ func (l *LinkedList[T]) Remove(value T) {
 
 func (l *LinkedList[T]) RemoveAt(index int) {
 	if index < 0 || index >= l.length {
-		panic("Index out of bounds")
+		return
 	}
 
 	if index == 0 {
@@ -131,9 +131,9 @@ func (l *LinkedList[T]) RemoveAt(index int) {
 	l.length--
 }
 
-func (l *LinkedList[T]) GetAt(index int) T {
+func (l *LinkedList[T]) GetAt(index int) (val T, ok bool) {
 	if index < 0 || index >= l.length {
-		panic("Index out of bounds")
+		return val, false
 	}
 
 	current := l.head
@@ -141,5 +141,5 @@ func (l *LinkedList[T]) GetAt(index int) T {
 		current = current.next
 	}
 
-	return current.value
+	return current.value, true
 }

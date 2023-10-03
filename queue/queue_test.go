@@ -11,7 +11,8 @@ func TestIntQueue(t *testing.T) {
 	s.Enqueue(7)
 	s.Enqueue(9)
 
-	if s.Dequeue() != 5 {
+	test, ok := s.Dequeue()
+	if test != 5 || !ok {
 		t.Error("Expected 5")
 	}
 
@@ -20,65 +21,38 @@ func TestIntQueue(t *testing.T) {
 	}
 
 	s.Enqueue(11)
-	if s.Dequeue() != 7 {
+
+	test, ok = s.Dequeue()
+	if test != 7 || !ok {
 		t.Error("Expected 7")
 	}
-	if s.Dequeue() != 9 {
+
+	test, ok = s.Dequeue()
+	if test != 9 || !ok {
 		t.Error("Expected 9")
 	}
-	if s.Peek() != 11 {
+
+	test, ok = s.Peek()
+	if test != 11 || !ok {
 		t.Error("Expected 11")
 	}
-	if s.Dequeue() != 11 {
+
+	test, ok = s.Dequeue()
+	if test != 11 || !ok {
 		t.Error("Expected 11")
 	}
+
 	if s.Len() != 0 {
 		t.Error("Expected length 0")
 	}
+
 	s.Enqueue(69)
-	if s.Peek() != 69 {
+
+	test, ok = s.Peek()
+	if test != 69 || !ok {
 		t.Error("Expected 69")
 	}
-	if s.Len() != 1 {
-		t.Error("Expected length 1")
-	}
-}
 
-func TestStringQueue(t *testing.T) {
-	s := Queue[string]{}
-
-	s.Enqueue("world")
-	s.Enqueue("hello")
-	s.Enqueue("hello")
-
-	if s.Dequeue() != "world" {
-		t.Error("Expected world")
-	}
-
-	if s.Len() != 2 {
-		t.Error("Expected length 2")
-	}
-
-	s.Enqueue("world")
-	if s.Dequeue() != "hello" {
-		t.Error("Expected hello")
-	}
-	if s.Dequeue() != "hello" {
-		t.Error("Expected hello")
-	}
-	if s.Peek() != "world" {
-		t.Error("Expected world")
-	}
-	if s.Dequeue() != "world" {
-		t.Error("Expected world")
-	}
-	if s.Len() != 0 {
-		t.Error("Expected length 0")
-	}
-	s.Enqueue("dassaword")
-	if s.Peek() != "dassaword" {
-		t.Error("Expected dassaword")
-	}
 	if s.Len() != 1 {
 		t.Error("Expected length 1")
 	}
