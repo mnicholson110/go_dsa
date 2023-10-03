@@ -6,7 +6,7 @@ type Node[T comparable] struct {
 	prev  *Node[T]
 }
 
-type LRUcache[K comparable, V comparable] struct {
+type LRUCache[K comparable, V comparable] struct {
 	capacity     int
 	length       int
 	head         *Node[V]
@@ -15,8 +15,8 @@ type LRUcache[K comparable, V comparable] struct {
 	reverseCache map[*Node[V]]K
 }
 
-func New[K comparable, V comparable](cap int) *LRUcache[K, V] {
-	return &LRUcache[K, V]{
+func New[K comparable, V comparable](cap int) *LRUCache[K, V] {
+	return &LRUCache[K, V]{
 		capacity:     cap,
 		length:       0,
 		head:         nil,
@@ -26,11 +26,11 @@ func New[K comparable, V comparable](cap int) *LRUcache[K, V] {
 	}
 }
 
-func (c *LRUcache[K, V]) Len() int {
+func (c *LRUCache[K, V]) Len() int {
 	return c.length
 }
 
-func (c *LRUcache[K, V]) Update(key K, value V) {
+func (c *LRUCache[K, V]) Update(key K, value V) {
 	node := c.cache[key]
 	if node == nil {
 		node = &Node[V]{value: value}
@@ -46,7 +46,7 @@ func (c *LRUcache[K, V]) Update(key K, value V) {
 	}
 }
 
-func (c *LRUcache[K, V]) Get(key K) (val V, ok bool) {
+func (c *LRUCache[K, V]) Get(key K) (val V, ok bool) {
 	node := c.cache[key]
 	if node == nil {
 		return val, false
@@ -58,7 +58,7 @@ func (c *LRUcache[K, V]) Get(key K) (val V, ok bool) {
 	return node.value, true
 }
 
-func (c *LRUcache[K, V]) detach(node *Node[V]) {
+func (c *LRUCache[K, V]) detach(node *Node[V]) {
 	if node.prev != nil {
 		node.prev.next = node.next
 	}
@@ -75,7 +75,7 @@ func (c *LRUcache[K, V]) detach(node *Node[V]) {
 	node.next = nil
 }
 
-func (c *LRUcache[K, V]) prepend(node *Node[V]) {
+func (c *LRUCache[K, V]) prepend(node *Node[V]) {
 	if c.head == nil {
 		c.head = node
 		c.tail = node
@@ -86,7 +86,7 @@ func (c *LRUcache[K, V]) prepend(node *Node[V]) {
 	}
 }
 
-func (c *LRUcache[K, V]) trimcache() {
+func (c *LRUCache[K, V]) trimcache() {
 	if c.length <= c.capacity {
 		return
 	}

@@ -7,12 +7,12 @@ import (
 func TestIntLRUCache(t *testing.T) {
 	c := New[string, int](3)
 
-  if _, r := c.Get("foo"); r {
+	if _, r := c.Get("foo"); r {
 		t.Error("Expected nil")
 	}
 
 	c.Update("foo", 69)
-  if _, r := c.Get("foo"); !r {
+	if _, r := c.Get("foo"); !r {
 		t.Error("Expected 69")
 	}
 
@@ -41,16 +41,15 @@ func TestIntLRUCache(t *testing.T) {
 
 	c.Update("foo", 69)
 
-  if _, r := c.Get("bar"); !r {
+	if _, r := c.Get("bar"); !r {
 		t.Error("Expected 420")
 	}
 
-  if _, r := c.Get("foo"); !r {
+	if _, r := c.Get("foo"); !r {
 		t.Error("Expected 69")
 	}
 
-  if _, r := c.Get("baz"); r {
+	if _, r := c.Get("baz"); r {
 		t.Error("Expected nil")
 	}
-
 }
